@@ -1,82 +1,10 @@
-const wishlist = [];
-
-function parseCSV(file) {
- try {
-   const reader = new FileReader();
-   reader.onload = (e) => {
-     const content = e.target.result;
-     const lines = content.split('\n');
-     if (!lines.length) return;
-     const headers = lines[0].split(',');
-     const dataRows = lines.slice(1).map(line => line.split(','));
-
-     // Check for required columns
-     const hasName = headers.includes('product name') || headers.includes('Product Name');
-     const hasCategory = headers.includes('category') || headers.includes('Category');
-     const hasPrice = headers.includes('current price') || headers.includes('Current Price');
-
-     if (!hasName || !hasCategory || !hasPrice) {
-       document.getElementById('upload-status').textContent = 'Invalid CSV: Missing required columns';
-       return;
-     }
-
-     // Map data rows to objects with consistent keys
-     const items = [];
-     for (const row of dataRows) {
-       if (row.length < 3) continue;
-       const item = {
-         product: row[0].trim(),
-         category: row[1].trim() ? row[1].trim() : '',
-         price: parseFloat(row[2]) || 0
-       };
-       items.push(item);
-     }
-
-     wishlist.length=0;
-     wishlist.push(...items);
-     renderResults();
-     document.getElementById('upload-status').textContent = 'CSV uploaded successfully!';
-   };
-   reader.readAsText(file);
- } catch (error) {
-   console.error(error);
-   document.getElementById('upload-status').textContent = 'Error parsing CSV: ' + error.message;
- }
-}
-
-function renderResults() {
- const filterSalesEvent = document.getElementById('sales-event').value.trim();
- const filterCategory = document.getElementById('category-filter').value.trim();
- 
- const filteredWishlist = wishlist.filter(item => (
-   (filterSalesEvent === '' || item.product.includes(filterSalesEvent)) &&
-   (filterCategory === '' || item.category.toLowerCase().includes(filterCategory.toLowerCase()))
- ));
-
- const container=document.getElementById('results-container');
- container.replaceChildren();
- for(const item of filteredWishlist){const card=document.createElement('div');card.className='result-item';for(const [tag,value] of [['strong',item.product],['span','Category: '+item.category],['span','Entered price: $'+item.price.toFixed(2)]]){const element=document.createElement(tag);element.textContent=value;card.append(element);}container.append(card);}
- if(!filteredWishlist.length)container.textContent='No matching items. Try another filter.';
-}
-
-// Initialize with sample data
-const sampleData = [
-  { product: 'Wireless Headphones', category: 'Electronics', price: 149.99 },
-  { product: 'Smartwatch', category: 'Wearables', price: 249.99 },
-  { product: 'Running Shoes', category: 'Sports', price: 89.99 }
-];
-
-wishlist.push(...sampleData);
+const wishlist=[{product:'Wireless Headphones',category:'Electronics',price:149.99},{product:'Smartwatch',category:'Wearables',price:249.99},{product:'Running Shoes',category:'Sports',price:89.99}];
+const status=document.getElementById('upload-status');
+function csvRows(text){const rows=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}else if(c===','&&!quoted){row.push(cell);cell='';}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(v=>v.trim()))rows.push(row);row=[];cell='';}else cell+=c;}if(quoted)throw new Error('An opening quote has no closing quote.');row.push(cell);if(row.some(v=>v.trim()))rows.push(row);return rows;}
+function importCSV(text){try{if(text.length>1000000)throw new Error('Use a CSV smaller than 1 MB.');const rows=csvRows(text);if(rows.length<2)throw new Error('Include a header and at least one item.');const headers=rows.shift().map(v=>v.trim().toLowerCase().replace(/^\uFEFF/,''));const columns=['product name','category','current price'].map(v=>headers.indexOf(v));if(columns.some(i=>i<0))throw new Error('Required headers: product name, category, current price.');const items=rows.map((row,index)=>{const product=(row[columns[0]]||'').trim(),category=(row[columns[1]]||'').trim(),raw=(row[columns[2]]||'').trim(),price=Number(raw);if(!product||!category||!raw||!Number.isFinite(price)||price<0)throw new Error('Invalid item or price on row '+(index+2)+'.');return {product,category,price};});wishlist.splice(0,wishlist.length,...items);renderResults();status.textContent='Imported '+items.length+' items. Prices are manually supplied, not live data.';}catch(error){status.textContent=error.message;}}
+function renderResults(){const query=document.getElementById('sales-event').value.trim().toLowerCase(),category=document.getElementById('category-filter').value.trim().toLowerCase();const matches=wishlist.filter(item=>(!query||item.product.toLowerCase().includes(query))&&(!category||item.category.toLowerCase().includes(category)));const container=document.getElementById('results-container');container.replaceChildren();for(const item of matches){const card=document.createElement('div');card.className='result-item';for(const [tag,value] of [['strong',item.product],['span','Category: '+item.category],['span','Entered price: $'+item.price.toFixed(2)]]){const element=document.createElement(tag);element.textContent=value;card.append(element);}container.append(card);}if(!matches.length)container.textContent='No matching items. Try another filter.';}
+document.getElementById('upload-btn').addEventListener('click',()=>{const file=document.getElementById('csv-upload').files[0];if(!file){status.textContent='Choose a CSV file first, or paste CSV below.';return;}if(file.size>1000000){status.textContent='Use a CSV smaller than 1 MB.';return;}const reader=new FileReader();reader.onload=()=>importCSV(String(reader.result));reader.onerror=()=>{status.textContent='The file could not be read.';};reader.readAsText(file);});
+document.getElementById('paste-btn').addEventListener('click',()=>importCSV(document.getElementById('paste-csv').value));
+document.getElementById('sales-event').addEventListener('input',renderResults);
+document.getElementById('category-filter').addEventListener('input',renderResults);
 renderResults();
-
-// Event listeners
-document.getElementById('upload-btn').addEventListener('click', () => {
-  const fileInput = document.getElementById('csv-upload');
-  if (fileInput.files.length) {
-    parseCSV(fileInput.files[0]);
-  }
-});
-
-document.getElementById('sales-event').addEventListener('input', renderResults);
-
-document.getElementById('category-filter').addEventListener('input', renderResults);

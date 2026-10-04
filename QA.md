@@ -1,10 +1,13 @@
 # QA report
 
-JavaScript syntax: Passed
-Offline scope: passed
-Behavior: Not yet verified in browser
+JavaScript syntax: passed.
+Offline scope: passed; generated preview remains sandboxed with network access disabled.
 
-## Manual acceptance checks
-- [ ] CSV upload dialog opens when 'Upload Wishlist' button is clicked
-- [ ] Filtered list updates immediately after manual filter inputs are changed
-- [ ] No external data persists beyond current browser session
+Browser acceptance checks on https://forgeradar.onrender.com:
+- Initial sample cards rendered.
+- Category Electronics showed only the headphones sample.
+- Pasted CSV with a quoted comma in a product name imported two items.
+- Product search selected the matching imported item.
+- A nonnumeric price produced an error rather than replacing the valid list.
+
+Automated file selection was unavailable because browser-extension file access was disabled. File-picker behavior is not marked as verified.
