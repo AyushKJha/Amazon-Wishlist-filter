@@ -1,8 +1,8 @@
-# Iteration 1
+# Iteration 2
 
-- [ ] Upload a labeled CSV file with product name, category, and current price columns
-- [ ] Enter sales event (e.g., 'Black Friday') and category filters manually
-- [ ] View filtered results with price comparison in the DOM
+- [ ] Upload a manually labeled CSV file with wishlist items (product name, category, current price)
+- [ ] Apply filters by sales event type (e.g., Black Friday) and category
+- [ ] Display filtered results in the DOM for direct price comparison
 
-Generated summary: Minimal offline browser prototype for filtering Amazon wishlists using manual CSV input and in-memory processing
+Generated summary: The QA rejected the Amazon Wishlist Filter Prototype due to a syntax error in the generated JavaScript code.
 Behavioral verification remains required.

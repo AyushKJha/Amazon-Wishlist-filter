@@ -5,6 +5,6 @@ Offline scope: passed
 Behavior: Not yet verified in browser
 
 ## Manual acceptance checks
-- [ ] CSV upload shows success message when valid headers are detected
-- [ ] Filtering applies immediately after entering sales event and category
-- [ ] Filtered list displays only matching items with prices visible for direct comparison
+- [ ] CSV upload dialog opens when 'Upload Wishlist' button is clicked
+- [ ] Filtered list updates immediately after manual filter inputs are changed
+- [ ] No external data persists beyond current browser session

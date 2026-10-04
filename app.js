@@ -1,7 +1,7 @@
-const wishlist = []; const salesEvents = ['Black Friday', 'Cyber Monday'];
+const wishlist = [];
 
 function parseCSV(file) {
- try { 
+ try {
    const reader = new FileReader();
    reader.onload = (e) => {
      const content = e.target.result;
@@ -26,13 +26,12 @@ function parseCSV(file) {
        if (row.length < 3) continue;
        const item = {
          product: row[0].trim(),
-         category: row[1].trim(),
+         category: row[1].trim() ? row[1].trim() : '',
          price: parseFloat(row[2]) || 0
        };
        items.push(item);
      }
 
-     wishlist.clear();
      wishlist.push(...items);
      document.getElementById('upload-status').textContent = 'CSV uploaded successfully!';
    };

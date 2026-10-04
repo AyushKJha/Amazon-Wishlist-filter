@@ -2,7 +2,7 @@
 
 Users have over 1000 items in Amazon wishlists but lack filtering by sales events (e.g., Black Friday) or categories, leading to inefficient shopping.
 
-Minimal offline browser prototype for filtering Amazon wishlists using manual CSV input and in-memory processing
+The QA rejected the Amazon Wishlist Filter Prototype due to a syntax error in the generated JavaScript code.
 
 ## Run
 Open index.html in a browser. This is an offline browser prototype, not a production backend.

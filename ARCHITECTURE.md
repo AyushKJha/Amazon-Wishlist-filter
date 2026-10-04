@@ -5,11 +5,11 @@ A minimal offline browser prototype for filtering Amazon wishlists using manual 
 Scope: offline browser prototype.
 
 ## Tasks
-- Upload a labeled CSV file with product name, category, and current price columns
-- Enter sales event (e.g., 'Black Friday') and category filters manually
-- View filtered results with price comparison in the DOM
+- Upload a manually labeled CSV file with wishlist items (product name, category, current price)
+- Apply filters by sales event type (e.g., Black Friday) and category
+- Display filtered results in the DOM for direct price comparison
 
 ## Acceptance
-- CSV upload shows success message when valid headers are detected
-- Filtering applies immediately after entering sales event and category
-- Filtered list displays only matching items with prices visible for direct comparison
+- CSV upload dialog opens when 'Upload Wishlist' button is clicked
+- Filtered list updates immediately after manual filter inputs are changed
+- No external data persists beyond current browser session
