@@ -32,7 +32,9 @@ function parseCSV(file) {
        items.push(item);
      }
 
+     wishlist.length=0;
      wishlist.push(...items);
+     renderResults();
      document.getElementById('upload-status').textContent = 'CSV uploaded successfully!';
    };
    reader.readAsText(file);
@@ -51,14 +53,10 @@ function renderResults() {
    (filterCategory === '' || item.category.toLowerCase().includes(filterCategory.toLowerCase()))
  ));
 
- const resultsHTML = filteredWishlist.map(item => `
- <div class="result-item">
-   <strong>${item.product}</strong>
-   <span>Category: ${item.category}</span>
-   <span>Price: $${item.price.toFixed(2)}</span>
- </div>`).join('\n');
-
- document.getElementById('results-container').innerHTML = resultsHTML;
+ const container=document.getElementById('results-container');
+ container.replaceChildren();
+ for(const item of filteredWishlist){const card=document.createElement('div');card.className='result-item';for(const [tag,value] of [['strong',item.product],['span','Category: '+item.category],['span','Entered price: $'+item.price.toFixed(2)]]){const element=document.createElement(tag);element.textContent=value;card.append(element);}container.append(card);}
+ if(!filteredWishlist.length)container.textContent='No matching items. Try another filter.';
 }
 
 // Initialize with sample data
