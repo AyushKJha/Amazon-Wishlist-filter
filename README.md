@@ -1,20 +1,17 @@
-# Wishlist Studio
+# Amazon Wishlist Filter / Deal Query
 
-An offline browser prototype for organizing a manually supplied wishlist. This is not an Amazon API integration and does not track live prices.
+Users have over 1000 items in Amazon wishlists but lack filtering by sales events (e.g., Black Friday) or categories, leading to inefficient shopping.
 
-## Features
-- Import a CSV file or paste CSV text.
-- Supports quoted fields, commas inside names, reordered required columns and CRLF line endings.
-- Search products and filter categories in memory.
-- Validate required columns, item names and finite nonnegative prices before replacing the list.
-- Render user data through textContent, without injecting HTML.
+Prototype for filtering Amazon wishlists by sales events and categories without live data.
 
 ## Run
-Open index.html in a browser, or use the sandboxed preview in ForgeRadar. No packages, server or internet connection are needed.
+Install Node.js 24 or newer, then run npm start. Open http://127.0.0.1:4320. No npm dependencies or build step. Data persists in data/app.sqlite; back up that directory. Run npm test for acceptance checks.
 
-CSV headers: product name, category, current price. Sample data and prices are illustrative. Imported data is kept only in memory and clears on refresh. Maximum input size: 1 MB.
+## Features
+Typed collection forms, create/edit/delete, case-insensitive search, JSON export and persistent SQLite data.
 
-## Validation
-Browser checks passed for initial rendering, category filtering, product search, pasted CSV with quoted names and invalid-price handling. The automated file-picker check was unavailable because of browser-extension file access; file selection is not claimed as automatically verified.
+## Hosting
+Default binding is loopback. For hosting set HOST=0.0.0.0 and APP_PASSWORD (at least 16 characters) in the provider environment and use HTTPS. Durable data requires persistent disk or a database provider; ephemeral free hosting does not preserve SQLite across redeploys.
 
-See PROPOSAL.md, ARCHITECTURE.md, TASKS.md and QA.md for scope and review notes.
+## Scope
+Single-owner application. External integrations, multi-user roles, payments and arbitrary workflows are not implemented. Review the generated schema and workflow before production use.

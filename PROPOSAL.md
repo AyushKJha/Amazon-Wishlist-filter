@@ -25,6 +25,3 @@ The candidate claims a novel solution for Amazon wishlist filtering, but existin
 - App Idea: Amazon Wishlist Filter / Deal Query — https://www.reddit.com/r/AppIdeas/comments/1wx1p23/app_idea_amazon_wishlist_filter_deal_query/
 
 Scoring method: Agent pipeline · local AI. Scores are estimates, not adoption predictions.
-
-## Why this candidate
-Addresses inefficiency in managing large wishlists through manual input of deal criteria.

@@ -1,15 +1,9 @@
-# Amazon Wishlist Filter Prototype
+# Amazon Wishlist Filter / Deal Query
 
-A minimal offline browser prototype for filtering Amazon wishlists using manual CSV input and in-memory processing.
+Prototype for filtering Amazon wishlists by sales events and categories without live data.
 
-Scope: offline browser prototype.
+Node.js 24+, SQLite, server-side validation, idempotent CRUD requests, reviewed browser interface. Database is excluded from GitHub. Owner app data stays on the worker.
 
-## Tasks
-- Upload a manually labeled CSV file with wishlist items (product name, category, current price)
-- Apply filters by sales event type (e.g., Black Friday) and category
-- Display filtered results in the DOM for direct price comparison
-
-## Acceptance
-- CSV upload dialog opens when 'Upload Wishlist' button is clicked
-- Filtered list updates immediately after manual filter inputs are changed
-- No external data persists beyond current browser session
+- Upload CSV with wishlist items (product name, category, current price)
+- Apply in-memory filters based on user-defined sales events and categories
+- Display filtered results with price comparison

@@ -1,0 +1,37 @@
+{
+  "title": "Amazon Wishlist Filter / Deal Query",
+  "description": "Prototype for filtering Amazon wishlists by sales events and categories without live data.",
+  "entities": [
+    {
+      "name": "wishlist_item",
+      "label": "Wishlist Item",
+      "fields": [
+        {
+          "name": "product_name",
+          "label": "Product Name",
+          "type": "text",
+          "required": true,
+          "options": []
+        },
+        {
+          "name": "category",
+          "label": "Category",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Electronics",
+            "Books",
+            "Clothing"
+          ]
+        },
+        {
+          "name": "current_price",
+          "label": "Current Price",
+          "type": "number",
+          "required": true,
+          "options": []
+        }
+      ]
+    }
+  ]
+}
