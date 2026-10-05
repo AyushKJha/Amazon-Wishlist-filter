@@ -1,6 +1,6 @@
 {
   "title": "Amazon Wishlist Filter / Deal Query",
-  "description": "Prototype for filtering Amazon wishlists by sales events and categories without live data.",
+  "description": "Manage manually entered wishlist items, categories and prices with persistent storage, search and CSV/JSON import. No live Amazon prices or sales alerts.",
   "entities": [
     {
       "name": "wishlist_item",
@@ -29,7 +29,9 @@
           "label": "Current Price",
           "type": "number",
           "required": true,
-          "options": []
+          "options": [],
+          "min": 0,
+          "exclusiveMin": true
         }
       ]
     }
