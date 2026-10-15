@@ -1,6 +1,6 @@
 {
   "title": "Amazon Wishlist Filter / Deal Query",
-  "description": "Manage manually entered wishlist items, categories and prices with persistent storage, search and CSV/JSON import. No live Amazon prices or sales alerts.",
+  "description": "Manage wishlist item with persistent records, typed forms, search and CSV/JSON import.",
   "entities": [
     {
       "name": "wishlist_item",
@@ -29,9 +29,7 @@
           "label": "Current Price",
           "type": "number",
           "required": true,
-          "options": [],
-          "min": 0,
-          "exclusiveMin": true
+          "options": []
         }
       ]
     }

@@ -1,3 +1,3 @@
-- [ ] Upload CSV with wishlist items (product name, category, current price)
+- [ ] Upload CSV file with wishlist items (product name, category, current price)
 - [ ] Apply in-memory filters based on user-defined sales events and categories
 - [ ] Display filtered results with price comparison
