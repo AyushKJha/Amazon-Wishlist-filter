@@ -4,6 +4,8 @@
 
 An offline browser prototype exploring a simple way to bring wishlist items into one searchable view.
 
+> **[Step-by-step user guide (PDF)](docs/USER_GUIDE.pdf)**
+
 ## Try it
 
 Open `index.html` in a browser. The starting list contains illustrative sample items; use the CSV upload or paste field to load your own rows. Expected columns, in order:
