@@ -1,17 +1,32 @@
-# Amazon Wishlist Filter / Deal Query
+# Wishlist Studio
 
-Users have over 1000 items in Amazon wishlists but lack filtering by sales events (e.g., Black Friday) or categories, leading to inefficient shopping.
+<img src="docs/banner.svg" alt="Amazon Wishlist filter — project illustration" width="100%">
 
-Manage wishlist item with persistent records, typed forms, search and CSV/JSON import.
+An offline browser prototype exploring a simple way to bring wishlist items into one searchable view.
 
-## Run
-Install Node.js 24 or newer, then run npm start. Open http://127.0.0.1:4320. No npm dependencies or build step. Data persists in data/app.sqlite; back up that directory. Run npm test for acceptance checks.
+## Try it
 
-## Features
-Typed collection forms, create/edit/delete, case-insensitive search, JSON export and persistent SQLite data.
+Open `index.html` in a browser. The starting list contains illustrative sample items; use the CSV upload or paste field to load your own rows. Expected columns, in order:
 
-## Hosting
-Default binding is loopback. For hosting set HOST=0.0.0.0 and APP_PASSWORD (at least 16 characters) in the provider environment and use HTTPS. Durable data requires persistent disk or a database provider; ephemeral free hosting does not preserve SQLite across redeploys.
+```csv
+product name,category,current price
+Wireless headphones,Electronics,149.99
+```
 
-## Scope
-Single-owner application. External integrations, multi-user roles, payments and arbitrary workflows are not implemented. Review the generated schema and workflow before production use.
+Search the imported list by product name and filter it by category.
+
+## Current scope
+
+This is an early front-end prototype. It does not connect to Amazon, fetch live wishlist contents, monitor sale events, or verify current prices. The sample items and prices are illustrative. Import a CSV you have prepared yourself; the app does not scrape websites.
+
+The repository also contains a Node.js/SQLite single-owner workspace scaffold. It is separate from the standalone browser demo; the current browser interface uses its sample list and imported CSV in memory.
+
+## Run the workspace scaffold
+
+Requires Node.js 24 or newer:
+
+```sh
+npm start
+```
+
+Open [http://127.0.0.1:4320](http://127.0.0.1:4320). To expose the scaffold beyond your computer, set `HOST=0.0.0.0`, a strong `APP_PASSWORD` (at least 16 characters), HTTPS, and durable database storage.
