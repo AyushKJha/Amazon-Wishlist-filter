@@ -38,6 +38,6 @@ Requires Node.js 24 or newer:
 npm start
 ```
 
-Open [http://127.0.0.1:4320](http://127.0.0.1:4320). To expose the scaffold beyond your computer, set `HOST=0.0.0.0`, a strong `APP_PASSWORD` (at least 16 characters), HTTPS, and durable database storage.
+Once the server is running, open [http://127.0.0.1:4320](http://127.0.0.1:4320) on the same laptop. If that port is already used by another project, run `$env:PORT=4321; node server.mjs` in PowerShell and open `http://127.0.0.1:4321`. To expose the scaffold beyond your computer, set `HOST=0.0.0.0`, a strong `APP_PASSWORD` (at least 16 characters), HTTPS, and durable database storage.
 
 The scaffold is a separate local workspace. Use its typed forms to create or edit records, search them, and import or export CSV/JSON where offered. Its persistent SQLite records are not used by the standalone wishlist demo.
