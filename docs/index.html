@@ -1,1 +1,99 @@
-<!doctype html><html lang="en" data-theme="eclipse"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Amazon Wishlist Filter / Deal Query</title><link rel="stylesheet" href="workspace.css"><script type="module" src="workspace.js"></script></head><body data-storage="browser"><main><header><span class="eyebrow">YOUR APPLICATION / PERSISTENT WORKSPACE</span><h1 id="title">Connecting…</h1><p id="description"></p><nav id="collections" aria-label="Collections"></nav><p id="notice" role="status" aria-live="polite"></p></header><div class="layout"><section><form id="editor"><h2 id="editorTitle">Add a record</h2><div id="fields"></div><div class="actions"><button id="save" type="submit">Save record</button><button id="reset" type="button">Clear form</button></div></form><details class="import-panel"><summary>Import records</summary><label for="importData">Paste a JSON array or CSV with the field names shown below</label><p id="importHelp"></p><textarea id="importData" rows="5" maxlength="60000"></textarea><button id="importRecords" type="button">Import into this collection</button></details></section><section><div class="toolbar"><label>Search records<input id="search" type="search" placeholder="Search any field"></label><button id="export" type="button">Export JSON</button></div><p id="count"></p><div id="records"></div></section></div><footer>Data stays in this browser on this device. Export JSON to back up or move your records.</footer></main></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wishlist Deal Tracker</title>
+<meta name="description" content="Track prices on your wishlist, see real drops against target prices, and plan what to buy within a budget.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="wish.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<main>
+  <header class="top">
+    <div>
+      <h1>Wishlist Deal Tracker</h1>
+      <p class="muted">Log prices as you check them, set the price you're willing to pay, and buy when it's actually a deal.</p>
+    </div>
+    <div class="top-actions">
+      <label class="currency">Currency
+        <select id="currency">
+          <option value="INR">₹ INR</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option><option value="GBP">£ GBP</option>
+        </select>
+      </label>
+      <button id="export" type="button">Export</button>
+      <button id="importBtn" type="button">Import</button>
+      <input id="importFile" type="file" accept=".json,.csv,application/json,text/csv" hidden>
+    </div>
+  </header>
+
+  <section class="stats" aria-label="Summary">
+    <div class="stat"><b id="statItems">0</b><span>Items</span></div>
+    <div class="stat"><b id="statDeals">0</b><span>At or below target</span></div>
+    <div class="stat"><b id="statValue">—</b><span>Wishlist total now</span></div>
+    <div class="stat"><b id="statSaved">—</b><span>Below peak prices</span></div>
+  </section>
+
+  <div class="grid">
+    <section>
+      <div class="card">
+        <h2 id="formTitle">Add an item</h2>
+        <form id="itemForm">
+          <input type="hidden" name="id">
+          <label>Name<input name="name" required maxlength="160" placeholder="Noise-cancelling headphones"></label>
+          <label>Product link<input name="url" type="url" placeholder="https://"></label>
+          <div class="row">
+            <label>Price now<input name="price" type="number" min="0" step="any" inputmode="decimal"></label>
+            <label>Target price<input name="target" type="number" min="0" step="any" inputmode="decimal"></label>
+          </div>
+          <div class="row">
+            <label>Category<input name="category" list="categories" maxlength="60" placeholder="Electronics"></label>
+            <label>Priority<select name="priority"><option value="3">Must have</option><option value="2" selected>Want</option><option value="1">Nice to have</option></select></label>
+          </div>
+          <label>Notes<input name="notes" maxlength="1000" placeholder="Colour, size, seller…"></label>
+          <datalist id="categories"></datalist>
+          <div class="top-actions">
+            <button class="primary" type="submit" id="saveItem">Add item</button>
+            <button type="button" id="clearItem">Clear</button>
+          </div>
+        </form>
+        <details class="spaced">
+          <summary class="small">Import from CSV</summary>
+          <p class="small muted">Columns: <code>name, price, target, category, url, priority, notes</code>. Only name is required.</p>
+          <textarea id="csv" placeholder="name,price,target,category&#10;Kindle Paperwhite,13999,11999,Electronics"></textarea>
+          <button type="button" id="importCsv">Import items</button>
+        </details>
+      </div>
+
+      <div class="card">
+        <h2>Budget planner</h2>
+        <p class="small muted">Picks the combination that fits your budget, favouring must-haves and better deals.</p>
+        <form id="budgetForm" class="inline-form">
+          <label>Budget<input name="budget" type="number" min="1" step="any" required inputmode="decimal"></label>
+          <button class="primary" type="submit">Plan</button>
+        </form>
+        <div id="plan"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="toolbar">
+        <label>Search<input id="search" type="search" placeholder="Name, category, notes"></label>
+        <label>Category<select id="filterCategory"><option value="">All</option></select></label>
+        <label>Sort<select id="sort">
+          <option value="deal">Best deal</option><option value="priority">Priority</option>
+          <option value="drop">Biggest drop</option><option value="price">Lowest price</option><option value="name">Name</option>
+        </select></label>
+        <label class="inline"><input id="onlyDeals" type="checkbox"> Deals only</label>
+      </div>
+      <p id="count" class="small muted"></p>
+      <div id="items" class="list"></div>
+    </section>
+  </div>
+  <footer id="footer">Your wishlist is saved in this browser only. Prices are logged by you; the app does not read store websites. Use Export to back up.</footer>
+</main>
+<div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

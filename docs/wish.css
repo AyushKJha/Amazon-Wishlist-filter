@@ -1,0 +1,26 @@
+.currency { display: flex; align-items: center; gap: 6px; margin: 0; font-weight: 500; }
+.currency select { margin: 0; width: auto; }
+.spaced { margin-top: 14px; }
+code { font-size: 12px; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+.toolbar { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr) auto; gap: 10px; align-items: end; margin-bottom: 8px; }
+.toolbar label { margin: 0; }
+.toolbar label.inline { padding-bottom: 8px; }
+@media (max-width: 700px) { .toolbar { grid-template-columns: 1fr 1fr; } .toolbar label:first-child { grid-column: 1 / -1; } }
+.inline-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: end; }
+.inline-form label { margin: 0; }
+.wish { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 14px; padding: 14px; border: 1px solid var(--line); border-radius: 10px; }
+.wish h3 { margin: 0 0 2px; font-size: 15px; }
+.wish h3 a { color: inherit; }
+.wish .meta { color: var(--muted); font-size: 13px; }
+.price { text-align: right; }
+.price b { font-size: 20px; letter-spacing: -.02em; display: block; }
+.price .delta { font-size: 12px; font-weight: 600; }
+.delta.down { color: var(--ok); }
+.delta.up { color: var(--bad); }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.wish-foot { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+.log { display: flex; gap: 6px; align-items: center; }
+.log input { width: 120px; margin: 0; }
+.plan-list { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 6px; }
+.plan-list li { display: flex; justify-content: space-between; gap: 10px; padding: 8px 10px; background: var(--surface-2); border-radius: 8px; font-size: 14px; }
+.plan-total { margin-top: 10px; font-weight: 600; }
