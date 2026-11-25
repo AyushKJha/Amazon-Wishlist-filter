@@ -2,3 +2,10 @@ data/
 .env
 .env.*
 node_modules/
+# Local editor and assistant tooling
+.claude/
+.codex/
+.cursor/
+.aider*
+CLAUDE.md
+AGENTS.md
